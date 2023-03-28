@@ -1,6 +1,6 @@
 [gd_resource type="VisualShader" load_steps=16 format=3 uid="uid://cpp5acpprvljr"]
 
-[ext_resource type="Texture2D" uid="uid://buyus3irc4mpx" path="res://addons/sworlds/resources/default_texture.png" id="1_83dp1"]
+[ext_resource type="Texture2D" uid="uid://b7yth265ibj0s" path="res://addons/sworlds/resources/default_texture.png" id="1_83dp1"]
 
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_8vs20"]
 default_input_values = [0, Vector2(3, 2), 1, Vector2(3, 2)]

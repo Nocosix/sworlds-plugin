@@ -34,6 +34,7 @@ func open_database():
 		button.set_title(world["Title"])
 		button.set_modified(world["ModifiedAt"])
 		button.filename = world["LocalFileName"]
+		button.set_thumbnail(world["ThumbnailData"])
 		item_list.add_child(button)
 #		button.parent = item_list
 	popup_centered()

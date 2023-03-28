@@ -14,6 +14,20 @@ signal update(value: String)
 
 func update_text():
 	update.emit("Name: " + title + "\nLast Modified: " + last_modified)
+	
+func set_thumbnail(base64: String):
+	if(base64 == ""):
+		push_error("Empty thumbnail")
+		return
+	var byte_array: PackedByteArray = Marshalls.base64_to_raw(base64)
+	var image: Image = Image.new()
+	#apparently jpg is the norm here
+	if (image.load_jpg_from_buffer(byte_array) != OK):
+		if(image.load_png_from_buffer(byte_array) != OK):
+			push_error("Unable to decode thumbnail")
+			return
+	var texture_rect := $HBoxContainer/TextureRect
+	texture_rect.texture = ImageTexture.create_from_image(image)
 
 func set_title(value: String):
 	title = value
