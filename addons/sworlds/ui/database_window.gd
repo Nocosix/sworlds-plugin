@@ -54,4 +54,5 @@ func _on_open_pressed():
 		self.hide()
 
 func _on_save_pressed():
-	_emit_filename(button_group.get_pressed_button(), save_path)
+	if(_emit_filename(button_group.get_pressed_button(), save_path) == OK):
+		self.hide()
