@@ -2,8 +2,8 @@
 Godot plugin to import and export Wacky Worlds
 
 To use:
-- Place addons folder into the root of a Godot 4 project
-- In Project > Project Settings, click on the Plugins tab and check the Enable checkbox on the sworlds plugin
+- Download either the release, or the entire repository as a zip
+- Unzip the file and open project.godot with Godot 4.0.1 or above (or import the zip directly)
 - Press Project > Tools > sworld database to access the database viewer
   - Press Open as Scene to open the selected world as a scene
   - Press Save Scene to save the currently open scene to the selected world
