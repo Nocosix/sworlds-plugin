@@ -13,4 +13,5 @@ To use:
 - To manually export the currently opened scene to a world, press Project > Tools > export sworld
 
 Known issues:
- - Will not look recursively for nodes, Placeables must all be direct children of the SWorld.
+ - Will not look recursively for nodes, Placeables must all be direct children of the SWorld
+ - Godot will allow you to unproportionally change scale, but only proportional scale is supported
