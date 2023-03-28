@@ -39,19 +39,19 @@ func open_database():
 #		button.parent = item_list
 	popup_centered()
 
-func _emit_filename(selection: BaseButton, emitted:Signal):
+func _emit_filename(selection: BaseButton, emitted:Signal) -> Error:
 	if(selection == null):
 		push_error("No entry selected.")
-		return
+		return FAILED
 	if(selection.filename == null):
 		push_error("No filename in entry.")
-		return
+		return FAILED
 	emitted.emit(ProjectSettings.get_setting("sworlds/sokworlds_folder") + "/" + selection.filename)
-	
+	return OK
 
 func _on_open_pressed():
-	_emit_filename(button_group.get_pressed_button(), open_path)
-	self.hide()
+	if(_emit_filename(button_group.get_pressed_button(), open_path) == OK):
+		self.hide()
 
 func _on_save_pressed():
 	_emit_filename(button_group.get_pressed_button(), save_path)
