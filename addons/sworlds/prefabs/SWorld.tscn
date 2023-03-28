@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://addons/sworlds/scripts/sworld.gd" id="1_jqtt3"]
+
+[node name="default_scene" type="Node3D"]
+transform = Transform3D(-1, 0, 0, 0, 1, -8.74228e-08, 0, 8.74228e-08, 1, 0, 0, 0)
+script = ExtResource("1_jqtt3")

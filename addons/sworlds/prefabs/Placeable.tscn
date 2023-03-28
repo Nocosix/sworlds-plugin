@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="BoxMesh" uid="uid://ctdjv4x8ehovy" path="res://addons/sworlds/resources/default_mesh.tres" id="1_it2a5"]
+[ext_resource type="Script" path="res://addons/sworlds/scripts/placeable.gd" id="2_hlfub"]
+
+[node name="Placeable" type="MeshInstance3D"]
+mesh = ExtResource("1_it2a5")
+script = ExtResource("2_hlfub")

@@ -1,0 +1,15 @@
+[gd_resource type="BoxMesh" load_steps=4 format=3 uid="uid://ctdjv4x8ehovy"]
+
+[ext_resource type="Shader" uid="uid://cpp5acpprvljr" path="res://addons/sworlds/resources/default_shader.tres" id="1_ekyi2"]
+[ext_resource type="Texture2D" uid="uid://buyus3irc4mpx" path="res://addons/sworlds/resources/default_texture.png" id="2_aciin"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kyjuh"]
+render_priority = 0
+shader = ExtResource("1_ekyi2")
+shader_parameter/tex = ExtResource("2_aciin")
+
+[resource]
+material = SubResource("ShaderMaterial_kyjuh")
+size = Vector3(2, 0.004, 2)
+subdivide_width = 8
+subdivide_depth = 8

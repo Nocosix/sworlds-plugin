@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://i0ekyv4vrbp2"]
+
+[ext_resource type="Script" path="res://addons/sworlds/ui/database_entry.gd" id="1_j6c3v"]
+[ext_resource type="Texture2D" uid="uid://bntafd6eosdt1" path="res://icon.svg" id="1_mkaqj"]
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(400, 60)
+toggle_mode = true
+script = ExtResource("1_j6c3v")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.02
+anchor_top = 0.03
+anchor_right = 0.98
+anchor_bottom = 0.97
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("1_mkaqj")
+expand_mode = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+text = "Name: Brando
+Last Modified: 12/12/12"
+scroll_active = false
+
+[connection signal="update" from="." to="HBoxContainer/RichTextLabel" method="set_text"]
