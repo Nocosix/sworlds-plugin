@@ -200,6 +200,40 @@ func _get_sworld() -> Node:
 		if(node is SWorld):
 			return node
 	return null
+
+#recursively goes through node children and appends entry of dict to the list	
+func _node_to_dict(node:Node, list:Array, parent_transform := Transform3D.IDENTITY):
+	var transform := parent_transform
+	if node is Node3D:
+		transform *= node.transform
+	for child in node.get_children():
+		_node_to_dict(child, list, transform)
+	if not node is Placeable:
+		return
+	var placeable = {}
+	var squish: float = node.mesh.size.z/node.mesh.size.x
+	placeable["PixaId"] = node.pixa_id
+	placeable["Position"] = {}
+	placeable["Position"]["x"] = transform.origin.x
+	placeable["Position"]["y"] = transform.origin.y
+	placeable["Position"]["z"] = transform.origin.z * -1.0
+	#it took trial and error to figure out to orthonormalize this
+	var rotation := transform.basis.orthonormalized().get_euler()
+	placeable["Rotation"] = {}
+	placeable["Rotation"]["x"] = rad_to_deg(rotation.x)
+	placeable["Rotation"]["y"] = -1.0 * rad_to_deg(rotation.y) + 180.0
+	placeable["Rotation"]["z"] = -1.0 * rad_to_deg(rotation.z) + 180.0
+	placeable["Scale"] = {}
+	placeable["Scale"]["x"] = transform.basis.x.length()
+	placeable["Scale"]["y"] = transform.basis.y.length()
+	placeable["Scale"]["z"] = transform.basis.z.length() * squish
+	if (node.custom_data == ""):
+		placeable["HasCustomData"] = false
+		placeable["CustomData"] = ""
+	else:
+		placeable["HasCustomData"] = true
+		placeable["CustomData"] = Marshalls.raw_to_base64(FileAccess.get_file_as_bytes(node.custom_data))
+	list.append(placeable)
 	
 func _export_sworld(filename: String):
 	var root_node: Node = _get_sworld()
@@ -213,26 +247,7 @@ func _export_sworld(filename: String):
 	sworld["FloorColor"] = {"r":root_node.floor_color.r,"g":root_node.floor_color.g,
 							"b":root_node.floor_color.b, "a":root_node.floor_color.a}
 	sworld["PlaceableInfos"] = []
-	#TODO: traverse nodes, use global coordinates or combine transforms with parents
-	for node in root_node.get_children():
-		if not (node is Placeable):
-			continue
-		var placeable: Dictionary = {}
-		var squish: float = node.mesh.size.z/node.mesh.size.x
-		var _wrap = func(value: float):
-			return 
-		placeable["PixaId"] = node.pixa_id
-		placeable["Position"] = {"x":node.position.x, "y":node.position.y, "z":node.position.z*-1.0}
-		placeable["Scale"] = {"x":node.scale.x, "y":node.scale.y, "z":node.scale.z * squish}
-		#this can give values bigger than usual but unity will deal with them fine
-		placeable["Rotation"] = {"x":node.rotation_degrees.x, "y":node.rotation_degrees.y*-1.0+180.0, "z":node.rotation_degrees.z*-1.0+180.0}
-		if (node.custom_data == ""):
-			placeable["HasCustomData"] = false
-			placeable["CustomData"] = ""
-		else:
-			placeable["HasCustomData"] = true
-			placeable["CustomData"] = Marshalls.raw_to_base64(FileAccess.get_file_as_bytes(node.custom_data))
-		sworld["PlaceableInfos"].append(placeable)
+	_node_to_dict(root_node, sworld["PlaceableInfos"])
 	var file = FileAccess.open(filename, FileAccess.WRITE)
 	file.store_string(JSON.stringify(sworld))
 	print("done!")

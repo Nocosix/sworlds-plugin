@@ -13,5 +13,4 @@ To use:
 - To change default folders, go into Project > Project Settings..., turn Advanced Settings on in the General tab, and scroll down to the Sworlds category
 
 Known issues:
- - Will not look recursively for nodes, Placeables must all be direct children of the SWorld
  - Godot will allow you to unproportionally change scale, but only proportional scale is supported
